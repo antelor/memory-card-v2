@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../styles/ImageBoard.scss';
-import Image from './Image';
+import Card from './Card';
 
-function ImageBoard() {
+function ImageBoard( {cats}: {cats:any[]} ) {
     return (
         <>
-            <Image />
+            <Card cat={cats[0]} id={cats[0].id}/>
         </>
     );
 }
