@@ -15,7 +15,7 @@ function App() {
 
   useEffect(
     () => {
-      fetch(`https://api.thecatapi.com/v1/images/search?limit=2&api_key=${API_KEY}`)
+      fetch(`https://api.thecatapi.com/v1/images/search?limit=7&api_key=${API_KEY}`)
       .then(response => response.json())
       .then(data =>{
         setCatArray(data)
@@ -23,10 +23,21 @@ function App() {
     }, []
   )
 
+  const shuffle = () =>{
+    const newCatArray = catArray;
+    for (let i = newCatArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newCatArray[i], newCatArray[j]] = [newCatArray[j], newCatArray[i]];
+    }
+
+    setCatArray(newCatArray);
+  }
+
+
   return (
     <>
       <Scoreboard score={score}/>
-      <ImageBoard cats={catArray} score={score} setScore={setScore}/>
+      <ImageBoard cats={catArray} shuffle={shuffle} score={score} setScore={setScore}/>
     </>
   )
 }
