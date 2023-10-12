@@ -10,10 +10,11 @@ const startingArray = [
 
 function App() {
   const [catArray, setCatArray] = useState(startingArray)
+  const [score, setScore] = useState(0);
 
   useEffect(
     () => {
-      fetch(`https://api.thecatapi.com/v1/images/search?limit=10&api_key=${API_KEY}`)
+      fetch(`https://api.thecatapi.com/v1/images/search?limit=2&api_key=${API_KEY}`)
       .then(response => response.json())
       .then(data =>{
         setCatArray(data)
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <>
-      <Scoreboard />
+      <Scoreboard score={score}/>
       <ImageBoard cats={catArray}/>
     </>
   )

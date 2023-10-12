@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../styles/Scoreboard.scss'
 
-function Scoreboard() {
+function Scoreboard( {score}: {score:number}) {
 
   return (
     <>
-        
+        {score}
     </>
   );
 }

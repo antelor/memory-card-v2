@@ -5,7 +5,9 @@ import Card from './Card';
 function ImageBoard( {cats}: {cats:any[]} ) {
     return (
         <>
-            <Card cat={cats[0]} id={cats[0].id}/>
+            {cats.map( (cat, index) => {
+                return <Card cat={cat} id={cat.id} key={index}/>
+            })}
         </>
     );
 }
