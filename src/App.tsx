@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import './styles/App.scss';
 import Scoreboard from './components/Scoreboard';
 import ImageBoard from './components/ImageBoard';
@@ -25,7 +26,7 @@ function App() {
   return (
     <>
       <Scoreboard score={score}/>
-      <ImageBoard cats={catArray}/>
+      <ImageBoard cats={catArray} score={score} setScore={setScore}/>
     </>
   )
 }

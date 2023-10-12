@@ -2,11 +2,11 @@
 import '../styles/ImageBoard.scss';
 import Card from './Card';
 
-function ImageBoard( {cats}: {cats:any[]} ) {
+function ImageBoard( {cats, score, setScore}: {cats:any[], score:number, setScore:any} ) {
     return (
         <>
             {cats.map( (cat, index) => {
-                return <Card cat={cat} id={cat.id} key={index}/>
+                return <Card cat={cat} id={cat.id} key={index} score={score} setScore={setScore}/>
             })}
         </>
     );

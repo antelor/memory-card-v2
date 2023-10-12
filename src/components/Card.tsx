@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-function Card({cat, id} : {cat:any, id:string}) {
+function Card({cat, id, score, setScore} : {cat:any, id:string, score:number, setScore:any}) {
     const [catId, setCatId] = useState('')
 
     useEffect(
@@ -14,7 +14,7 @@ function Card({cat, id} : {cat:any, id:string}) {
     return (
         <>
             <div data-id={catId}>
-                { cat ? <img src={cat.url}/> : ''}
+                { cat ? <img src={cat.url} onClick={()=>setScore(score+1)}/> : ''}
             </div>
         </>
     );
