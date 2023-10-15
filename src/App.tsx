@@ -1,13 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import './styles/App.scss';
 import Scoreboard from './components/Scoreboard';
 import ImageBoard from './components/ImageBoard';
 import { useEffect, useState } from 'react';
 import API_KEY from './config';
+import Cat from './components/types';
 
-const startingArray = [
-  {id:''},
+
+const startingArray:Cat[] = [
+  {id:0, url:'', width:0, height:0},
 ]
+
+
+
 
 function App() {
   const [catArray, setCatArray] = useState(startingArray)
@@ -18,12 +22,16 @@ function App() {
       fetch(`https://api.thecatapi.com/v1/images/search?limit=7&api_key=${API_KEY}`)
       .then(response => response.json())
       .then(data =>{
+        let cats:Cat[] = [];
+        data.forEach((object: Cat) => {
+          cats.push(object);
+        });
         setCatArray(data)
       })
     }, []
   )
 
-  const shuffle = () =>{
+  const shuffle = ():void =>{
     const newCatArray = catArray;
     for (let i = newCatArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
