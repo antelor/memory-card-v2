@@ -7,7 +7,7 @@ import Cat from './components/types';
 
 
 const startingArray:Cat[] = [
-  {id:0, url:'', width:0, height:0},
+  {id:'', url:'', width:0, height:0},
 ]
 
 // test comment for fork
@@ -16,18 +16,23 @@ const startingArray:Cat[] = [
 function App() {
   const [catArray, setCatArray] = useState(startingArray)
   const [score, setScore] = useState(0);
+  const [clickedCats, setClickedCats] = useState<string[]>([]);
+
+  const fetchCats = ():void => {
+    fetch(`https://api.thecatapi.com/v1/images/search?limit=4&api_key=${API_KEY}`)
+    .then(response => response.json())
+    .then(data =>{
+      const cats:Cat[] = [];
+      data.forEach((object: Cat) => {
+        cats.push(object);
+      });
+      setCatArray(data)
+    })
+  }
 
   useEffect(
     () => {
-      fetch(`https://api.thecatapi.com/v1/images/search?limit=7&api_key=${API_KEY}`)
-      .then(response => response.json())
-      .then(data =>{
-        let cats:Cat[] = [];
-        data.forEach((object: Cat) => {
-          cats.push(object);
-        });
-        setCatArray(data)
-      })
+      fetchCats();
     }, []
   )
 
@@ -41,11 +46,42 @@ function App() {
     setCatArray(newCatArray);
   }
 
+  const winCheck = ():void => {
+    console.log(score)
+    if (score === 3) {
+      alert('You win!')
+      setScore(0);
+      setClickedCats([]);
+      shuffle();
+      fetchCats();
+    }
+  }
+
+  const clickCheck = (id:string):void => {
+    console.log(id)
+    console.log(clickedCats)
+    console.log(clickedCats.includes(id))
+    if (clickedCats.includes(id)) {
+      setScore(0);
+      setClickedCats([]);
+      shuffle();
+    }
+    else {
+      setScore(score+1);
+      const newClickedCats = clickedCats;
+      newClickedCats.push(id);
+      setClickedCats(newClickedCats);
+      winCheck();
+      shuffle();
+    }
+  }
+
+  
 
   return (
     <>
       <Scoreboard score={score}/>
-      <ImageBoard cats={catArray} shuffle={shuffle} score={score} setScore={setScore}/>
+      <ImageBoard cats={catArray} clickCheck={clickCheck}/>
     </>
   )
 }
