@@ -1,8 +1,9 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useEffect} from "react";
 import Cat from './types';
+import '../styles/Card.scss';
 
-function Card({cat, id, shuffle, score, setScore} : {cat:Cat, id:number, shuffle:()=>void, score:number, setScore:Dispatch<SetStateAction<number>>}) {
-    const [catId, setCatId] = useState(0)
+function Card({cat, id, clickCheck} : {cat:Cat, id:string, clickCheck:(id:string)=>void}) {
+    const [catId, setCatId] = useState("")
 
     useEffect(
         () => {
@@ -13,8 +14,8 @@ function Card({cat, id, shuffle, score, setScore} : {cat:Cat, id:number, shuffle
 
     return (
         <>
-            <div data-id={catId} >
-                { cat ? <img src={cat.url} onClick={()=>{setScore(score+1), shuffle()}}/> : ''}
+            <div data-id={catId} className="catCard" >
+                { cat ? <img src={cat.url} onClick={()=>{clickCheck(catId)}}/> : ''}
             </div>
         </>
     );
