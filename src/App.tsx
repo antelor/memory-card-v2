@@ -16,6 +16,7 @@ const startingArray:Cat[] = [
 function App() {
   const [catArray, setCatArray] = useState(startingArray)
   const [score, setScore] = useState(0);
+  const [hiscore, setHiscore] = useState(0);
   const [clickedCats, setClickedCats] = useState<string[]>([]);
 
   const fetchCats = ():void => {
@@ -58,16 +59,15 @@ function App() {
   }
 
   const clickCheck = (id:string):void => {
-    console.log(id)
-    console.log(clickedCats)
-    console.log(clickedCats.includes(id))
     if (clickedCats.includes(id)) {
       setScore(0);
       setClickedCats([]);
       shuffle();
+      (score>hiscore ? setHiscore(score) : "");
     }
     else {
       setScore(score+1);
+      (score>=hiscore ? setHiscore(score+1) : "");
       const newClickedCats = clickedCats;
       newClickedCats.push(id);
       setClickedCats(newClickedCats);
@@ -80,7 +80,7 @@ function App() {
 
   return (
     <>
-      <Scoreboard score={score}/>
+      <Scoreboard score={score} hiscore={hiscore}/>
       <ImageBoard cats={catArray} clickCheck={clickCheck}/>
     </>
   )

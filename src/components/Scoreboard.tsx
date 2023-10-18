@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '../styles/Scoreboard.scss'
 
-function Scoreboard( {score}: {score:number}) {
+function Scoreboard( {score, hiscore}: {score:number, hiscore:number}) {
 
   return (
-    <>
-        {score}
-    </>
+    <div className='score'>
+      <div>
+        Score: {score}
+      </div>
+      <div>
+        Hiscore: {hiscore}
+      </div>
+    </div>
   );
 }
 
