@@ -7,7 +7,7 @@ const WinScreen = ({winState, restart}: {winState:boolean, restart:()=>void}) =>
         <div className="winBackground" style={{ 'display': winState ? 'flex' : 'none' }}>
             <div className='winMenu'>
                 <div>
-                    Ganaste
+                    Ganaste :3
                 </div>
 
                 <button onClick={restart}>Restart</button>

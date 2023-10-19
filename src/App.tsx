@@ -5,7 +5,7 @@ import WinScreen from './components/WinScreen';
 import { useEffect, useState } from 'react';
 import API_KEY from './config';
 import Cat from './components/types';
-const length = 4;
+const length = 8;
 
 const startingArray:Cat[] = [
   {id:'', url:'', width:0, height:0},
