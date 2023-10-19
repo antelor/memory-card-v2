@@ -1,16 +1,15 @@
 import './styles/App.scss';
 import Scoreboard from './components/Scoreboard';
 import ImageBoard from './components/ImageBoard';
+import WinScreen from './components/WinScreen';
 import { useEffect, useState } from 'react';
 import API_KEY from './config';
 import Cat from './components/types';
-
+const length = 4;
 
 const startingArray:Cat[] = [
   {id:'', url:'', width:0, height:0},
 ]
-
-// test comment for fork
 
 
 function App() {
@@ -18,9 +17,10 @@ function App() {
   const [score, setScore] = useState(0);
   const [hiscore, setHiscore] = useState(0);
   const [clickedCats, setClickedCats] = useState<string[]>([]);
+  const [ winState, setWinState ] = useState<boolean>(false);
 
   const fetchCats = ():void => {
-    fetch(`https://api.thecatapi.com/v1/images/search?limit=4&api_key=${API_KEY}`)
+    fetch(`https://api.thecatapi.com/v1/images/search?limit=${length}&api_key=${API_KEY}`)
     .then(response => response.json())
     .then(data =>{
       const cats:Cat[] = [];
@@ -47,14 +47,17 @@ function App() {
     setCatArray(newCatArray);
   }
 
+  const restart = ():void =>{
+    setScore(0);
+    setClickedCats([]);
+    shuffle();
+    fetchCats();
+    setWinState(false);
+  }
+
   const winCheck = ():void => {
-    console.log(score)
-    if (score === 3) {
-      alert('You win!')
-      setScore(0);
-      setClickedCats([]);
-      shuffle();
-      fetchCats();
+    if (score === length-1) {
+      setWinState(true);
     }
   }
 
@@ -80,6 +83,7 @@ function App() {
 
   return (
     <>
+    <WinScreen winState={winState} restart={restart}/>
       <Scoreboard score={score} hiscore={hiscore}/>
       <ImageBoard cats={catArray} clickCheck={clickCheck}/>
     </>
