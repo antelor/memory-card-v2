@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/cv-application-v2/',
+  base: '/memory-card-v2/',
   plugins: [react()],
 })
