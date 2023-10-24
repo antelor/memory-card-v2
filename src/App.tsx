@@ -82,11 +82,11 @@ function App() {
   
 
   return (
-    <>
-    <WinScreen winState={winState} restart={restart}/>
+    <div className="appScreen">
+      <WinScreen winState={winState} restart={restart}/>
       <Scoreboard score={score} hiscore={hiscore}/>
       <ImageBoard cats={catArray} clickCheck={clickCheck}/>
-    </>
+    </div>
   )
 }
 
